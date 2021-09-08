@@ -1,14 +1,5 @@
-// get DOM elements
-var dataChannelLog = document.getElementById('data-channel'),
-    iceConnectionLog = document.getElementById('ice-connection-state'),
-    iceGatheringLog = document.getElementById('ice-gathering-state'),
-    signalingLog = document.getElementById('signaling-state');
-
 // peer connection
 var pc = null;
-
-// data channel
-var dc = null, dcInterval = null;
 
 function createPeerConnection() {
     var config = {
@@ -16,8 +7,6 @@ function createPeerConnection() {
         iceServers: [{urls: ['stun:stun.l.google.com:19302']}]
     };
 
-    //config.iceServers = [{urls: ['stun:stun.l.google.com:19302']}];
-   
     pc = new RTCPeerConnection(config);
 
     // connect video stream when available
@@ -49,7 +38,6 @@ function negotiate() {
     }).then(function() {
         var offer = pc.localDescription;
 
-        document.getElementById('offer-sdp').textContent = offer.sdp;
         return fetch('/offer', {
             body: JSON.stringify({
                 sdp: offer.sdp,
@@ -64,7 +52,6 @@ function negotiate() {
     }).then(function(response) {
         return response.json();
     }).then(function(answer) {
-        document.getElementById('answer-sdp').textContent = answer.sdp;
         return pc.setRemoteDescription(answer);
     }).catch(function(e) {
         alert(e);

@@ -3,32 +3,8 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WebRTC demo</title>
-    <style>
-    button {
-        padding: 8px 16px;
-    }
-
-    pre {
-        overflow-x: hidden;
-        overflow-y: auto;
-    }
-
-    video {
-        width: 100%;
-    }
-
-    .option {
-        margin-bottom: 8px;
-    }
-
-    #media {
-        max-width: 1280px;
-    }
-    </style>
 </head>
 <body>
-
-<h2>Options</h2>
 <div class="option">
     <input id="use-video" type="checkbox"/>
     <label for="use-video">Use video</label>
@@ -45,18 +21,6 @@
     <h2>Media</h2>
     <video id="video" autoplay="true" playsinline="true"></video>
 </div>
-
-<h2>Data channel</h2>
-<pre id="data-channel" style="height: 200px;"></pre>
-
-<h2>SDP</h2>
-
-<h3>Offer</h3>
-<pre id="offer-sdp"></pre>
-
-<h3>Answer</h3>
-<pre id="answer-sdp"></pre>
-
 <script src="client.js"></script>
 </body>
 </html>
