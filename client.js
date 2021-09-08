@@ -84,13 +84,13 @@ function start() {
         }
     };
  
-        document.getElementById('media').style.display = 'block';
-        navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
-            stream.getTracks().forEach(function(track) {
-                pc.addTrack(track, stream);
-            });
-            return negotiate();
-        }); 
+    document.getElementById('media').style.display = 'block';
+    navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+        stream.getTracks().forEach(function(track) {
+            pc.addTrack(track, stream);
+        });
+        return negotiate();
+    }); 
 
     document.getElementById('stop').style.display = 'inline-block';
 }
