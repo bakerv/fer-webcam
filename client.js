@@ -94,7 +94,7 @@ function stop() {
         });
     }
 
-    // close local audio / video
+    // close local video feed
     pc.getSenders().forEach(function(sender) {
         sender.track.stop();
     });
@@ -103,6 +103,7 @@ function stop() {
     setTimeout(function() {
         pc.close();
     }, 500);
+    console.log(pc.getSenders())
 
     document.getElementById('start').style.display = 'inline-block';
 }
