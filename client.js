@@ -103,15 +103,28 @@ function start() {
     }
 
     var constraints = {
-        video: {
-            width: 320,
-            height: 240,
-            frameRate: {
-                max: 5
-            }
-        }
+        video: false
     };
-    
+
+    if (document.getElementById('use-video').checked) {
+        var resolution = document.getElementById('video-resolution').value;
+        if (resolution) {
+            resolution = resolution.split('x');
+            constraints.video = {
+                width: parseInt(resolution[0], 0),
+                height: parseInt(resolution[1], 0),
+                frameRate: {
+                    max: 5
+                }
+            };
+        } else {
+            constraints.video = {
+                frameRate: {
+                    max: 5
+                }
+            };
+        }
+    }
 
     if (constraints.video) {
         if (constraints.video) {

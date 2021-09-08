@@ -56,7 +56,7 @@ class VideoTransformTrack(MediaStreamTrack):
             # format input image from the stream and dectect faces using a cascaade classifier    
             bounding_box_path = os.path.join('static','xml','lbpcascade_frontalface.xml')
             bounding_box = cv2.CascadeClassifier(bounding_box_path)
-            frame = frame.reformat(1200,860,'bgr24')
+            frame = frame.reformat(640,480, 'bgr24')
             img = frame.to_ndarray()
             gray_frame = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
             num_faces = bounding_box.detectMultiScale(gray_frame,scaleFactor=1.3, minNeighbors=5)
@@ -163,6 +163,7 @@ async def offer(request):
             {"sdp": pc.localDescription.sdp, "type": pc.localDescription.type}
         ),
     )
+
 
 async def on_shutdown(app):
     # close peer connections
