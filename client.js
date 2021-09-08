@@ -12,36 +12,21 @@ var dc = null, dcInterval = null;
 
 function createPeerConnection() {
     var config = {
-        sdpSemantics: 'unified-plan'
+        sdpSemantics: 'unified-plan',
+        iceServers: [{urls: ['stun:stun.l.google.com:19302']}]
     };
 
-   config.iceServers = [{urls: ['stun:stun.l.google.com:19302']}];
+    //config.iceServers = [{urls: ['stun:stun.l.google.com:19302']}];
    
-   pc = new RTCPeerConnection(config);
+    pc = new RTCPeerConnection(config);
 
-    // register some listeners to help debugging
-    pc.addEventListener('icegatheringstatechange', function() {
-        iceGatheringLog.textContent += ' -> ' + pc.iceGatheringState;
-    }, false);
-    iceGatheringLog.textContent = pc.iceGatheringState;
-
-    pc.addEventListener('iceconnectionstatechange', function() {
-        iceConnectionLog.textContent += ' -> ' + pc.iceConnectionState;
-    }, false);
-    iceConnectionLog.textContent = pc.iceConnectionState;
-
-    pc.addEventListener('signalingstatechange', function() {
-        signalingLog.textContent += ' -> ' + pc.signalingState;
-    }, false);
-    signalingLog.textContent = pc.signalingState;
-
-    // connect audio / video
+    // connect video stream when available
     pc.addEventListener('track', function(evt) {
         document.getElementById('video').srcObject = evt.streams[0];
     });
 
     return pc;
-}
+    }
 
 function negotiate() {
     return pc.createOffer().then(function(offer) {
@@ -99,13 +84,13 @@ function start() {
         }
     };
  
-    document.getElementById('media').style.display = 'block';
-    navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
-        stream.getTracks().forEach(function(track) {
-            pc.addTrack(track, stream);
-        });
-        return negotiate();
-    }); 
+        document.getElementById('media').style.display = 'block';
+        navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+            stream.getTracks().forEach(function(track) {
+                pc.addTrack(track, stream);
+            });
+            return negotiate();
+        }); 
 
     document.getElementById('stop').style.display = 'inline-block';
 }
