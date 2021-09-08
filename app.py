@@ -13,11 +13,12 @@ from av import VideoFrame
 from aiortc import MediaStreamTrack, RTCPeerConnection, RTCSessionDescription
 from aiortc.contrib.media import MediaBlackhole, MediaPlayer, MediaRecorder
 
+import numpy as np
+import tflite_runtime.interpreter as tflite
 ROOT = os.path.dirname(__file__)
 
 logger = logging.getLogger("pc")
 pcs = set()
-
 
 class VideoTransformTrack(MediaStreamTrack):
     """
@@ -30,7 +31,7 @@ class VideoTransformTrack(MediaStreamTrack):
         super().__init__()  # don't forget this!
         self.track = track
         self.transform = transform
-
+    
     async def recv(self):
         frame = await self.track.recv()
 
@@ -84,6 +85,43 @@ class VideoTransformTrack(MediaStreamTrack):
             new_frame = VideoFrame.from_ndarray(img, format="bgr24")
             new_frame.pts = frame.pts
             new_frame.time_base = frame.time_base
+            return new_frame
+        elif self.transform == "emotion":
+            tflite_model_path = os.path.join('static','models','emotion_model_full.tflite')
+            interpreter = tflite.Interpreter(model_path=tflite_model_path)
+            interpreter.allocate_tensors()
+            input_details = interpreter.get_input_details()
+            output_details = interpreter.get_output_details()
+            emotion_dict = {0: "Angry",
+                1: "Disgusted",
+                2: "Fearful",
+                3: "Happy",
+                4: "Neutral",
+                5: "Sad",
+                6: "Surprised"}
+            bounding_box_path = os.path.join('static','xml','haarcascade_frontalface_default.xml')
+            # Use haar cascade to draw bounding box around face
+            bounding_box = cv2.CascadeClassifier(bounding_box_path)
+            frame = frame.reformat(640,480, 'bgr24')
+            img = frame.to_ndarray()
+            gray_frame = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            num_faces = bounding_box.detectMultiScale(gray_frame,scaleFactor=1.3, minNeighbors=5)
+
+            for (x, y, w, h) in num_faces:
+                cv2.rectangle(img, (x, y-50), (x+w, y+h+10), (255, 0, 0), 2)
+                roi_gray_frame = gray_frame[y:y + h, x:x + w]
+                cropped_img = np.expand_dims(np.expand_dims(cv2.resize(roi_gray_frame, (48, 48)), -1), 0)
+                cropped_img = cropped_img.astype('float32')
+                emotion_prediction = interpreter.set_tensor(input_details[0]['index'],cropped_img)
+                interpreter.invoke()
+                emotion_prediction = interpreter.get_tensor(output_details[0]['index'])
+                maxindex = int(np.argmax(emotion_prediction))
+                cv2.flip(cv2.putText(img, emotion_dict[maxindex], (x+20, y-60), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA),1)
+
+            new_frame = VideoFrame.from_ndarray(img, format="bgr24")
+            new_frame.pts = frame.pts
+            new_frame.time_base = frame.time_base
+
             return new_frame
         else:
             return frame
