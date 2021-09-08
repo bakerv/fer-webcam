@@ -63,6 +63,9 @@ function negotiate() {
         });
     }).then(function() {
         var offer = pc.localDescription;
+        var codec;
+        codec = 'default'
+
 
         document.getElementById('offer-sdp').textContent = offer.sdp;
         return fetch('/offer', {
@@ -100,6 +103,32 @@ function start() {
         } else {
             return new Date().getTime() - time_start;
         }
+    }
+
+    if (document.getElementById('use-datachannel').checked) {
+        var parameters = JSON.parse(document.getElementById('datachannel-parameters').value);
+
+        dc = pc.createDataChannel('chat', parameters);
+        dc.onclose = function() {
+            clearInterval(dcInterval);
+            dataChannelLog.textContent += '- close\n';
+        };
+        dc.onopen = function() {
+            dataChannelLog.textContent += '- open\n';
+            dcInterval = setInterval(function() {
+                var message = 'ping ' + current_stamp();
+                dataChannelLog.textContent += '> ' + message + '\n';
+                dc.send(message);
+            }, 1000);
+        };
+        dc.onmessage = function(evt) {
+            dataChannelLog.textContent += '< ' + evt.data + '\n';
+
+            if (evt.data.substring(0, 4) === 'pong') {
+                var elapsed_ms = current_stamp() - parseInt(evt.data.substring(5), 10);
+                dataChannelLog.textContent += ' RTT ' + elapsed_ms + ' ms\n';
+            }
+        };
     }
 
     var constraints = {
