@@ -15,11 +15,9 @@ function createPeerConnection() {
         sdpSemantics: 'unified-plan'
     };
 
-    if (document.getElementById('use-stun').checked) {
-        config.iceServers = [{urls: ['stun:stun.l.google.com:19302']}];
-    }
-
-    pc = new RTCPeerConnection(config);
+   config.iceServers = [{urls: ['stun:stun.l.google.com:19302']}];
+   
+   pc = new RTCPeerConnection(config);
 
     // register some listeners to help debugging
     pc.addEventListener('icegatheringstatechange', function() {
@@ -39,10 +37,7 @@ function createPeerConnection() {
 
     // connect audio / video
     pc.addEventListener('track', function(evt) {
-        if (evt.track.kind == 'video')
-            document.getElementById('video').srcObject = evt.streams[0];
-        else
-            document.getElementById('audio').srcObject = evt.streams[0];
+        document.getElementById('video').srcObject = evt.streams[0];
     });
 
     return pc;
@@ -69,16 +64,8 @@ function negotiate() {
     }).then(function() {
         var offer = pc.localDescription;
         var codec;
+        codec = 'default'
 
-        codec = document.getElementById('audio-codec').value;
-        if (codec !== 'default') {
-            offer.sdp = sdpFilterCodec('audio', codec, offer.sdp);
-        }
-
-        codec = document.getElementById('video-codec').value;
-        if (codec !== 'default') {
-            offer.sdp = sdpFilterCodec('video', codec, offer.sdp);
-        }
 
         document.getElementById('offer-sdp').textContent = offer.sdp;
         return fetch('/offer', {
@@ -145,7 +132,6 @@ function start() {
     }
 
     var constraints = {
-        audio: document.getElementById('use-audio').checked,
         video: false
     };
 
@@ -169,7 +155,7 @@ function start() {
         }
     }
 
-    if (constraints.audio || constraints.video) {
+    if (constraints.video) {
         if (constraints.video) {
             document.getElementById('media').style.display = 'block';
         }
@@ -214,6 +200,8 @@ function stop() {
     setTimeout(function() {
         pc.close();
     }, 500);
+
+    document.getElementById('start').style.display = 'inline-block';
 }
 
 function sdpFilterCodec(kind, codec, realSdp) {
@@ -269,6 +257,7 @@ function sdpFilterCodec(kind, codec, realSdp) {
             sdp += lines[i] + '\n';
         }
     }
+    
 
     return sdp;
 }
