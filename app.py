@@ -17,6 +17,7 @@ import numpy as np
 import tflite_runtime.interpreter as tflite
 ROOT = os.path.dirname(__file__)
 
+
 logger = logging.getLogger("pc")
 pcs = set()
 
@@ -99,7 +100,7 @@ class VideoTransformTrack(MediaStreamTrack):
                 4: "Neutral",
                 5: "Sad",
                 6: "Surprised"}
-            bounding_box_path = os.path.join('static','xml','haarcascade_frontalface_default.xml')
+            bounding_box_path = os.path.join('static','xml','lbpcascade_frontalface.xml')
             # Use haar cascade to draw bounding box around face
             bounding_box = cv2.CascadeClassifier(bounding_box_path)
             frame = frame.reformat(640,480, 'bgr24')
