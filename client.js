@@ -99,17 +99,13 @@ function start() {
         }
     };
  
-        if (constraints.video) {
-            document.getElementById('media').style.display = 'block';
-        }
-        navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
-            stream.getTracks().forEach(function(track) {
-                pc.addTrack(track, stream);
-            });
-            return negotiate();
-        }, function(err) {
-            alert('Could not acquire media: ' + err);
-        }); 
+    document.getElementById('media').style.display = 'block';
+    navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+        stream.getTracks().forEach(function(track) {
+            pc.addTrack(track, stream);
+        });
+        return negotiate();
+    }); 
 
     document.getElementById('stop').style.display = 'inline-block';
 }
