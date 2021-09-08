@@ -90,43 +90,15 @@ function start() {
     document.getElementById('start').style.display = 'none';
 
     pc = createPeerConnection();
-
-    var time_start = null;
-
-    function current_stamp() {
-        if (time_start === null) {
-            time_start = new Date().getTime();
-            return 0;
-        } else {
-            return new Date().getTime() - time_start;
-        }
-    }
-
     var constraints = {
-        video: false
-    };
-
-    if (document.getElementById('use-video').checked) {
-        var resolution = document.getElementById('video-resolution').value;
-        if (resolution) {
-            resolution = resolution.split('x');
-            constraints.video = {
-                width: parseInt(resolution[0], 0),
-                height: parseInt(resolution[1], 0),
-                frameRate: {
-                    max: 5
-                }
-            };
-        } else {
-            constraints.video = {
-                frameRate: {
-                    max: 5
-                }
-            };
+        video: {
+            frameRate: {
+                ideal: 5,
+                max: 20
+            }
         }
-    }
-
-    if (constraints.video) {
+    };
+ 
         if (constraints.video) {
             document.getElementById('media').style.display = 'block';
         }
@@ -137,21 +109,13 @@ function start() {
             return negotiate();
         }, function(err) {
             alert('Could not acquire media: ' + err);
-        });
-    } else {
-        negotiate();
-    }
+        }); 
 
     document.getElementById('stop').style.display = 'inline-block';
 }
 
 function stop() {
     document.getElementById('stop').style.display = 'none';
-
-    // close data channel
-    if (dc) {
-        dc.close();
-    }
 
     // close transceivers
     if (pc.getTransceivers) {
