@@ -5,10 +5,76 @@
        <meta charset="UTF-8">
        <meta http-equiv="X-UA-Compatible" content="IE=edge">
        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-       <title>What does your Zoom face say about you?</title>
-       <link rel="stylesheet" type="text/css" src="style.css">
+       <title>What does your face say about you?</title>
        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
    </head>
+   <style>
+     /* Importing font */
+@import url(//db.onlinewebfonts.com/c/c16f494de2b352a69ead71431b29a155?family=Kaleko205W00-Book);
+
+@font-face {font-family: "Kaleko205W00-Book"; src:
+url("//db.onlinewebfonts.com/t/c16f494de2b352a69ead71431b29a155.ttf") format("truetype")
+}
+
+
+/* remove default margin and padding from body */
+body{
+  padding: 0px;
+  margin: 0px;
+  background: linear-gradient(to top, #00c6fb 0%, #005bea 100%);
+}
+
+/* set map, body, and html to 100% of the screen size */
+body,
+html {
+  height: 100%;
+}
+
+.legend {
+  line-height: 20px;
+  color: black;
+  padding: 5px;
+  border-radius: 6px;
+  border-top: 1px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.legend img {
+  width: 20px;
+  height: 20px;
+  float: left;
+  margin-right: 8px;
+}
+
+.legend span {
+  font-size: 13px;
+}
+
+#ships-only,
+#sharks-only,
+#both,
+#click-me,
+#nevermind {
+  color:rgb(207, 36, 36);
+  background-color: white;
+  margin: 3px;
+  font-size: 16px;
+  width: 90px;
+}
+
+h1, h3, .navbar, .btn {
+  font-family: 'Kaleko205W00-Book', sans-serif;
+  color: rgb(255, 255, 255);
+}
+
+
+.chart {
+  width:90%;
+  max-width:1000px;
+  height:auto;
+}
+
+   </style>
    <body>
       <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
@@ -38,8 +104,8 @@
           </div>
             </nav>
 <div class=container-fluid>
-  <div class="col">
-    <div class="row" style="background-color: rgba(255, 255, 255, 0.4); margin-top:10px; margin-bottom:10px">    
+  <div class="col-lg-12">
+    <div class="row-lg-12" style="background-color: rgba(255, 255, 255, 0.4); margin-top:10px; margin-bottom:10px">    
       <center><h1 class ="tlt" style="color: white" >Mood Detector</h1>
       <p class="tlt1" style="font-size: 20px;">Are we able to detect your emotion using our code? Be able to see how you are perceived based off your facial expressions.</p></center>
      </div>
@@ -57,7 +123,7 @@
     <button id="start" onclick="start()">Start</button>
     <button id="stop" style="display: none" onclick="stop()">Stop</button>
     
-    <div id="media" style="display: none">
+    <div id="media" class="chart" style="display: none">
         <video id="video" autoplay="true" playsinline="true"></video>
     </div>
     </div></center>
@@ -67,9 +133,9 @@
   <footer>
    <center><p>Created by: Victor Baker, James Gonzales, Courtney Hyland, and Maria Ramirez</p></center>
   </footer>   
-   <script type="text/javascript" src="mdb_min.js"></script>
+   <script src="/scripts/mdb.min.js"></script>
    <script src="client.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script> 
+   <script src="/scripts/bootstrap.bundle.min.js" ></script> 
    </body>
 
 

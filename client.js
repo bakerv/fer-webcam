@@ -66,7 +66,7 @@ function start() {
         video: {
             frameRate: {
                 ideal: 5,
-                max: 20
+                max: 10
             }
         }
     };
