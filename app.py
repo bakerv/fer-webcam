@@ -260,7 +260,7 @@ if __name__ == "__main__":
     app.router.add_get("/", index)
     app.router.add_get("/sources", sources)
     app.router.add_get("/client.js", javascript)
-    app.router.add_static('/scripts/', path='static/scripts', name = 'scripts')
+    app.router.add_static('/static/', path='static/', name = 'static')
     app.router.add_post("/offer", offer)
     web.run_app(
         app, access_log=None, port=args.port, ssl_context=ssl_context
