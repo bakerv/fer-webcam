@@ -2,24 +2,184 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WebRTC demo</title>
+    <title>What does your face say about you?</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <style>
+    .option {
+        margin-bottom: 8px;
+        display:none
+    }
+            /* Importing font */
+@import url(//db.onlinewebfonts.com/c/c16f494de2b352a69ead71431b29a155?family=Kaleko205W00-Book);
+
+@font-face {font-family: "Kaleko205W00-Book"; src:
+url("//db.onlinewebfonts.com/t/c16f494de2b352a69ead71431b29a155.ttf") format("truetype")
+}
+
+/* remove default margin and padding from body */
+body{
+  padding: 0px;
+  margin: 0px;
+  background: linear-gradient(to top, #00c6fb 0%, #005bea 100%);
+}
+
+/* set map, body, and html to 100% of the screen size */
+body{
+  height: 100%;
+}
+
+.legend {
+  line-height: 20px;
+  color: black;
+  padding: 5px;
+  border-radius: 6px;
+  border-top: 1px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.legend img {
+  width: 20px;
+  height: 20px;
+  float: left;
+  margin-right: 8px;
+}
+
+.legend span {
+  font-size: 13px;
+}
+
+.btn {
+  color:white;
+  background-color: rgba(255, 255, 255, 0.3);
+  margin: 3px;
+  font-size: 16px;
+  width: 180px;
+  font-family: 'Kaleko205W00-Book', sans-serif;
+  /* color: rgb(255, 255, 255); */
+}
+
+h1, h3, .navbar{
+  font-family: 'Kaleko205W00-Book', sans-serif;
+  color: rgb(255, 255, 255);
+}
+
+
+.chart {
+  width:90%;
+  max-width:640px;
+  height:auto;
+}
+    </style>
 </head>
 <body>
-<div class="option">
-    <input id="use-video" type="checkbox"/>
-    <label for="use-video">Use video</label>
-    <select id="video-transform">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-mdb-toggle="collapse"
+            data-mdb-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+            style="background-color:white"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <a class="navbar-brand mt-2 mt-sm-0">
+               </a>
+            <ul class="navbar-nav me-auto mb-0 mb-sm-0">
+              <li class="nav-item">
+                <a class="nav-link" href="/">Mood Detector</a>
+              </li>
+                <li class="nav-item">
+                <a class="nav-link" href="/sources">Sources</a>
+              </li>
+            </ul>
+          </div>
+            </nav>
+<div class=container-fluid>
+  <div class="col-lg-12">
+    <div class="row-lg-12" style="background-color: rgba(255, 255, 255, 0.4); margin-top:10px; margin-bottom:10px">    
+      <center><h1 class ="tlt" style="color: white" >Mood Detector</h1>
+      <p class="tlt1" style="font-size: 20px;">Are we able to detect your emotion using our code? Be able to see how you are perceived based off your facial expressions.</p></center>
+     </div>
+  </div>
+<center>
+    <a class="btn btn-primary" id="start" role="button" onclick="start()">Start Predictions</a>
+    <a class="btn btn-primary" id="stop" role="button" onclick="stop()">Stop Predictions</a>
     
-        <option value="emotion">Emotion</option>
+    <div id="media" style="display: none">
+        <audio id="audio" autoplay="true"></audio>
+        <video class="chart" id="video" autoplay="true" playsinline="true"></video>
+    </div>
+</center>
+<!--Communication options for the server, hidden from the user -->
+<div class="option">
+    <input id="use-datachannel" type="checkbox"/>
+    <label for="use-datachannel">Use datachannel</label>
+    <select id="datachannel-parameters">
+        <option value='{"ordered": true}'>Ordered, reliable</option>
+        <option value='{"ordered": false, "maxRetransmits": 0}'>Unordered, no retransmissions</option>
+        <option value='{"ordered": false, "maxPacketLifetime": 500}'>Unordered, 500ms lifetime</option>
     </select>
 </div>
-
-<button id="start" onclick="start()">Start</button>
-<button id="stop" style="display: none" onclick="stop()">Stop</button>
-
-<div id="media" style="display: none">
-    <video id="video" autoplay="true" playsinline="true"></video>
+<div class="option">
+    <input id="use-audio" type="checkbox"/>
+    <label for="use-audio">Use audio</label>
+    <select id="audio-codec">
+        <option value="default" selected>Default codecs</option>
+    </select>
 </div>
-<script src="client.js"></script>
+<div class="option">
+    <input id="use-video" checked="checked" type="checkbox"/>
+    <label for="use-video">Use video</label>
+    <select id="video-resolution">
+        <option value="" selected>Default resolution</option>
+    </select>
+    <select id="video-transform">
+        <option value="emotion">Emotion</option>
+    </select>
+    <select id="video-codec">
+        <option value="default" selected>Default codecs</option>
+    </select>
+</div>
+<div class="option">
+    <input id="use-stun" checked="checked" type="checkbox"/>
+    <label for="use-stun">Use STUN server</label>
+</div>
+
+<div class="option">
+<h2>State</h2>
+<p>
+    ICE gathering state: <span id="ice-gathering-state"></span>
+</p>
+<p>
+    ICE connection state: <span id="ice-connection-state"></span>
+</p>
+<p>
+    Signaling state: <span id="signaling-state"></span>
+</p>
+
+<h2>Data channel</h2>
+<pre id="data-channel" style="height: 200px;"></pre>
+
+<h2>SDP</h2>
+
+<h3>Offer</h3>
+<pre id="offer-sdp"></pre>
+
+<h3>Answer</h3>
+<pre id="answer-sdp"></pre>
+</div>
+<!-- End Hidden communication options -->
+
+<footer>
+    <center><p>Created by: Victor Baker, James Gonzales, Courtney Hyland, and Maria Ramirez</p></center>
+   </footer>   
+    <script src="/scripts/mdb.min.js"></script>
+    <script src="client.js"></script>
+    <script src="/scripts/bootstrap.bundle.min.js" ></script> 
 </body>
 </html>
