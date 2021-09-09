@@ -157,15 +157,15 @@ function start() {
                 width: parseInt(resolution[0], 0),
                 height: parseInt(resolution[1], 0),
                 frameRate: {
-                    ideal: 15,
-                    max: 15
+                    ideal: 11,
+                    max: 11
                 }
             };
         } else {
             constraints.video = {  
                 frameRate: {
-                    ideal: 15,
-                    max: 15
+                    ideal: 11,
+                    max: 11
             }};
         }
     }
