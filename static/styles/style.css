@@ -1,0 +1,93 @@
+/* Importing font */
+@import url(//db.onlinewebfonts.com/c/c16f494de2b352a69ead71431b29a155?family=Kaleko205W00-Book);
+
+@font-face {font-family: "Kaleko205W00-Book"; src:
+url("//db.onlinewebfonts.com/t/c16f494de2b352a69ead71431b29a155.eot"); src:
+url("//db.onlinewebfonts.com/t/c16f494de2b352a69ead71431b29a155.eot?#iefix") format("embedded-opentype"),
+url("//db.onlinewebfonts.com/t/c16f494de2b352a69ead71431b29a155.woff2") format("woff2"),
+url("//db.onlinewebfonts.com/t/c16f494de2b352a69ead71431b29a155.woff") format("woff"),
+url("//db.onlinewebfonts.com/t/c16f494de2b352a69ead71431b29a155.ttf") format("truetype"),
+url("//db.onlinewebfonts.com/t/c16f494de2b352a69ead71431b29a155.svg#Kaleko205W00-Book") format("svg"); }
+
+
+/* remove default margin and padding from body */
+body{
+  padding: 0px;
+  margin: 0px;
+  background: linear-gradient(to top, #00c6fb 0%, #005bea 100%);
+}
+
+/* set map, body, and html to 100% of the screen size */
+body,
+html {
+  height: 88%;
+}
+
+.legend {
+  line-height: 20px;
+  color: black;
+  padding: 5px;
+  border-radius: 6px;
+  border-top: 1px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.legend img {
+  width: 20px;
+  height: 20px;
+  float: left;
+  margin-right: 8px;
+}
+
+.legend span {
+  font-size: 13px;
+}
+
+#ships-only,
+#sharks-only,
+#both,
+#click-me,
+#nevermind {
+  color:rgb(207, 36, 36);
+  background-color: white;
+  margin: 3px;
+  font-size: 16px;
+  width: 90px;
+}
+
+h1, h3, .navbar, .btn {
+  font-family: 'Kaleko205W00-Book', sans-serif;
+  color: rgb(255, 255, 255);
+}
+
+
+.chart {
+  width:90%;
+  max-width:1000px;
+  height:auto;
+}
+
+
+body {
+  height: 100vh;
+  width: 100vw;
+  background: #f2f4f6;
+  overflow: hidden;
+}
+.webcam-start-stop {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  padding: 5px 0;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.webcam-start-stop > a {
+  text-decoration: unset;
+  color: #000;
+  background: #fff;
+  padding: 10px 20px;
+}
