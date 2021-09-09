@@ -158,14 +158,14 @@ function start() {
                 height: parseInt(resolution[1], 0),
                 frameRate: {
                     ideal: 5,
-                    max: 5
+                    max: 11
                 }
             };
         } else {
             constraints.video = {  
                 frameRate: {
                     ideal: 5,
-                    max: 5
+                    max: 11
             }};
         }
     }
