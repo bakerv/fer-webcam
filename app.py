@@ -11,7 +11,7 @@ from aiohttp import web
 from av import VideoFrame
 
 from aiortc import MediaStreamTrack, RTCPeerConnection, RTCSessionDescription
-from aiortc.contrib.media import MediaBlackhole, MediaPlayer, MediaRecorder
+from aiortc.contrib.media import MediaBlackhole
 
 import numpy as np
 import tflite_runtime.interpreter as tflite
@@ -95,14 +95,6 @@ async def javascript(request):
     content = open(os.path.join(ROOT, "client.js"), "r").read()
     return web.Response(content_type="application/javascript", text=content)
 
-# async def mdb_js(request):
-#     content = open(os.path.join(ROOT, "mdb_min.js"), "r").read()
-#     return web.Response(content_type="application/javascript", text=content)
-
-# async def style_css(request):
-#     content = open(os.path.join(ROOT, "style.css"), "r").read()
-#     return web.Response(content_type="text/css", text=content)
-
 async def offer(request):
     params = await request.json()
     offer = RTCSessionDescription(sdp=params["sdp"], type=params["type"])
@@ -117,11 +109,8 @@ async def offer(request):
     log_info("Created for %s", request.remote)
 
     # prepare local media
-    player = MediaPlayer(os.path.join(ROOT, "demo-instruct.wav"))
-    if args.write_audio:
-        recorder = MediaRecorder(args.write_audio)
-    else:
-        recorder = MediaBlackhole()
+   
+    recorder = MediaBlackhole()
 
     @pc.on("datachannel")
     def on_datachannel(channel):
@@ -141,10 +130,7 @@ async def offer(request):
     def on_track(track):
         log_info("Track %s received", track.kind)
 
-        if track.kind == "audio":
-            pc.addTrack(player.audio)
-            recorder.addTrack(track)
-        elif track.kind == "video":
+        if track.kind == "video":
             local_video = VideoTransformTrack(
                 track, transform=params["video_transform"]
             )
@@ -188,7 +174,6 @@ if __name__ == "__main__":
         "--port", type=int, default=os.getenv('PORT'), help="Port for HTTP server (default: 8080)"
     )
     parser.add_argument("--verbose", "-v", action="count")
-    parser.add_argument("--write-audio", help="Write received audio to a file")
     args = parser.parse_args()
 
     if args.verbose:
@@ -207,7 +192,6 @@ if __name__ == "__main__":
     app.router.add_get("/", index)
     app.router.add_get("/client.js", javascript)
     app.router.add_static('/scripts/', path='static/scripts', name = 'scripts')
-    app.router.add_static('/styles/', path='static/styles', name='styles')
     app.router.add_post("/offer", offer)
     web.run_app(
         app, access_log=None, port=args.port, ssl_context=ssl_context

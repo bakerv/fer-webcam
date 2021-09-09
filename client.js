@@ -57,7 +57,26 @@ function negotiate() {
         alert(e);
     });
 }
-
+function init_video() {
+    pc = createPeerConnection();
+    var constraints = {
+        video: {
+            frameRate: {
+                ideal: 5,
+                max: 10
+            }
+        }
+    };
+ 
+    document.getElementById('media').style.display = 'block';
+    navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+        stream.getTracks().forEach(function(track) {
+            pc.addTrack(track, stream);
+        });
+        return negotiate();
+    });
+}
+ 
 function start() {
     document.getElementById('start').style.display = 'none';
 
