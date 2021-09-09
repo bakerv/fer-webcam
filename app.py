@@ -91,11 +91,17 @@ async def index(request):
     content = open(os.path.join(ROOT, "indexmer.html"), "r").read()
     return web.Response(content_type="text/html", text=content)
 
-
 async def javascript(request):
     content = open(os.path.join(ROOT, "client.js"), "r").read()
     return web.Response(content_type="application/javascript", text=content)
 
+async def mdb_js(request):
+    content = open(os.path.join(ROOT, "mdb.min.js"), "r").read()
+    return web.Response(content_type="application/javascript", text=content)
+
+async def style_css(request):
+    content = open(os.path.join(ROOT, "style.css"), "r").read()
+    return web.Response(content_type="text/css", text=content)
 
 async def offer(request):
     params = await request.json()
@@ -200,6 +206,8 @@ if __name__ == "__main__":
     app.on_shutdown.append(on_shutdown)
     app.router.add_get("/", index)
     app.router.add_get("/client.js", javascript)
+    app.router.add_get("/mdb_min.js", mdb_js)
+    app.router.add_get("/style.css", style_css)
     app.router.add_post("/offer", offer)
     web.run_app(
         app, access_log=None, port=args.port, ssl_context=ssl_context
