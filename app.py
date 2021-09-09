@@ -96,7 +96,7 @@ async def javascript(request):
     return web.Response(content_type="application/javascript", text=content)
 
 async def mdb_js(request):
-    content = open(os.path.join(ROOT, "mdb.min.js"), "r").read()
+    content = open(os.path.join(ROOT, "mdb_min.js"), "r").read()
     return web.Response(content_type="application/javascript", text=content)
 
 async def style_css(request):
