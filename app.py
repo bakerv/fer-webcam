@@ -138,7 +138,6 @@ class VideoTransformTrack(MediaStreamTrack):
         else:
             return frame
 
-
 async def index(request):
     content = open(os.path.join(ROOT, "static/html/index.html"), "r").read()
     return web.Response(content_type="text/html", text=content)
@@ -147,11 +146,13 @@ async def sources(request):
     content = open(os.path.join(ROOT, "static/html/sources.html"), "r").read()
     return web.Response(content_type="text/html", text=content)
 
+async def troubleshooting(request):
+    content = open(os.path.join(ROOT, "static/html/troubleshooting.html"), "r").read()
+    return web.Response(content_type="text/html", text=content)
 
 async def javascript(request):
-    content = open(os.path.join(ROOT, "client.js"), "r").read()
+    content = open(os.path.join(ROOT, "static/scripts/client.js"), "r").read()
     return web.Response(content_type="application/javascript", text=content)
-
 
 async def offer(request):
     params = await request.json()
@@ -259,6 +260,7 @@ if __name__ == "__main__":
     app.on_shutdown.append(on_shutdown)
     app.router.add_get("/", index)
     app.router.add_get("/sources", sources)
+    app.router.add_get("/troubleshooting", troubleshooting)
     app.router.add_get("/client.js", javascript)
     app.router.add_static('/static/', path='static/', name = 'static')
     app.router.add_post("/offer", offer)

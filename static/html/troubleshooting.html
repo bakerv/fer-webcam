@@ -62,7 +62,7 @@
       /* color: rgb(255, 255, 255); */
     }
     
-    h1, h3, .navbar{
+    h1, h3, h4, .navbar{
       font-family: 'Kaleko205W00-Book', sans-serif;
       color: rgb(255, 255, 255);
     }
@@ -108,26 +108,22 @@
           <div class="d-flex align-items-center">
             </nav>
             <div class = "row" style="background-color: rgba(255,255,255,0.4); margin-top:10px; margin-bottom:10px">
-                <h1><center>Sources</center></h1> </br>
+                <h1><center>Troubleshooting</center></h1> </br>
             </div>
                 <div class="container">
                    
                     <div class="row card" style="margin:10px; background-color: rgba(255,255,255,0.4);">
-                        <h3>Articles</h3>
-                        <p>Behera, Girjia Shankar. "Face Detection with Haar Cascade." Medium, Towards Data Science, 29 Dec 2020, towardsdatascience.com/face-detection-with-haar-cascade-727f68dafd08.</p>
-                        <p>"Elements Marketplace: Heroku-Buildpack-Apt." Heroku/Heroku-Buildpack-Apt - Buildpacks - Heroku Elements, elements.heroku.com/buidpacks/heroku/heroku-buildpack-apt.</p>
-                        <p>Khaireddin, Yousif, and Shoufa Chen. "Facial Emotion Recognition: State of the Art Performance on fer2013." ArXiv.org, 8 May 2021, arxiv.org/abs/2105.03588v1.</p>
-                        <p>Mellouk, Wafa, and Wahida Handouzi. "Facial Emotion Recognition Using Deep Learning: Review and Insights." Procedia Computer Science, Elsevier, 6 Aug. 2020, www.sciencedirect.com/science/article/pii/S1877050920318019</p>
-                        <p>"Rapid Object Detection Using a Boosted cascade of Simple Features." IEEE Xplore, ieeexplore.org/document/990517</p>
-                        <p>"TensorFlow Lite." tensorFlow, www.tensorflow.org/lite/guide</p>
-                        
-                        <h3>Code</h3>
-                        <p>Aiortc. "Aiortc/Aiortc: WebRTC and Ortc Implementation for Python Using Asyncio." Github, github.com/aiortc/aiortc.</p>
-                        <p>"Emojify - Create Your Own Emoji with Deep Learning." Dataflair, 14 Mar. 2021, data-flair.training/blogs/create-emoji-with-deep-learning/.</p>
-                        <p>Nagm, Hemanth. "Camera App with Flask and OpenCV." Medium, Towards Data Science, 30 May 2021, towardsdatascience.com/camera-app-with-flask-and-opencv-bd147f6c0eec</p>
-                        <h3>Models</h3>
-                        <p>"Opencv." Github, github.com/opencv</p>
-                        <p>Usef-Kh. "Usef-kh/Fer: Code for the Paper "Facial Emotion Recognition: State of the Art Performance on FER2013." Github, github.com/usef-kh/fers</p>
+                        <h4> I do not see any video</h4>
+                        <p>If you are not seeing a video stream make sure your browser is allowed to access your camera.</p>
+                        <p>If you camera is currently in use (such as for a zoom chat) it will not be allowed to be used by this app a well. Please disable whatever is using your camera, and try launching the app again.</p>
+                        <p></p>
+                        <h4>I can see video, but why is nothing happening?</h4>
+                        <p>If you can see a video stream, but nothing else, the app might be struggling to detect your face. Please try increasing the amount of light in the room or holding the camera farther from your face. </p>
+                        <p>Face detection works best when the camera sees your full face straight on, in a brightly lit room or area.</p>
+                        <p></p>
+                        <h4>The video stream is slow or lagging</h4>
+                        <p>The video stream is capped at 11 fps, and may not look smooth. However, if you are experience a delay of more a second or so, please try reloading the app to improve performance.</p>
+                        <p>Please note that server resources are currently limited, and the app may lag if multiple users are running it simultaneously. If reloading the app does not work, please try running the app again a little bit later.</p>
 </div>
 </div>
 
