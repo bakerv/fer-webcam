@@ -1,5 +1,6 @@
 # What does your face say about you?
 Facial recognition is an increasingly important field in today's age. Use cases range from law enforcement and digital securtiy, to advertising and location tracking. This project demonstrates that it is possible to take off the shelf example code, and implement an effective application for face detection and emotion recognition.
+
 ### Tools Used:
 Python, Javascript, Tensorflow, openCV, webRTC, aiohttp, aiortc, and others
 
@@ -53,11 +54,11 @@ The model shows the best classification on the “happiness” and “surprise�
 
 - Khaireddin, Yousif, and Shoufa Chen. "Facial Emotion Recognition: State of the Art Performance on FER2013." ArXiv.org, 8 May 2021, arxiv.org/abs/2105.03588v1.
 
-- Mellouk, Wafa, and Wahida Handouzi. "Facial Emotion Recognition Using Deep Learning: Review and Insights." Procedia Computer Science, Elsevier, 6 Aug. 2020, www.sciencedirect.com/science/article/pii/S1877050920318019
+- Mellouk, Wafa, and Wahida Handouzi. "Facial Emotion Recognition Using Deep Learning: Review and Insights." Procedia Computer Science, Elsevier, 6 Aug. 2020, sciencedirect.com/science/article/pii/S1877050920318019
 
 - "Rapid Object Detection Using a Boosted cascade of Simple Features." IEEE Xplore, ieeexplore.ieee.org/document/990517
 
-- "TensorFlow Lite." tensorFlow, www.tensorflow.org/lite/guide
+- "TensorFlow Lite." tensorFlow, tensorflow.org/lite/guide
 
 ### Code
 - Aiortc. "Aiortc/Aiortc: WebRTC and Ortc Implementation for Python Using Asyncio." Github, github.com/aiortc/aiortc.
@@ -68,7 +69,7 @@ The model shows the best classification on the “happiness” and “surprise�
 
 
 ### Data
-- Sambare, Manas. “FER-2013.” Kaggle, 19 July 2020, www.kaggle.com/msambare/fer2013. 
+- Sambare, Manas. “FER-2013.” Kaggle, 19 July 2020, kaggle.com/msambare/fer2013. 
 
 ### Models
 - "Opencv." Github, github.com/opencv
