@@ -52,7 +52,7 @@ The model shows the best classification on the “happiness” and “surprise�
 
 - "Elements Marketplace: Heroku-Buildpack-Apt." Heroku/Heroku-Buildpack-Apt - Buildpacks - Heroku Elements, elements.heroku.com/buidpacks/heroku/heroku-buildpack-apt.
 
-- Khaireddin, Yousif, and Zhoufa Chen. "Facial Emotion Recognition: State of the Art Performance on FER2013." ArXiv.org, 8 May 2021, arxiv.org/abs/2105.03588v1.
+- Khaireddin, Yousif, and Zhuofa Chen. "Facial Emotion Recognition: State of the Art Performance on FER2013." ArXiv.org, 8 May 2021, arxiv.org/abs/2105.03588v1.
 
 - Mellouk, Wafa, and Wahida Handouzi. "Facial Emotion Recognition Using Deep Learning: Review and Insights." Procedia Computer Science, Elsevier, 6 Aug. 2020, sciencedirect.com/science/article/pii/S1877050920318019
 
