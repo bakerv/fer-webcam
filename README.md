@@ -10,7 +10,7 @@ The code relies on two different machine learning algorithms. The Haar Cascade i
 
 ## Communication Process
 
-The first thing that happens when app launches, is the client is told to request their public IP from a STUN server. This is done to  enable communication through NATs, giving the web server a valid return address for the media stream.  Once that is accomplished, the front end Javascript initiates a stream using webRTC. Tihs stream is sent to the web server, along with the public IP address as the return point. The back end server processes the stream, makes a prediction, and then returns that prediction to the client on top of the original video stream.
+The first thing that happens when app launches, is the client is told to request their public IP from a STUN server. This is done to  enable communication through NATs, giving the web server a valid return address for the media stream.  Once that is accomplished, the front end Javascript initiates a stream using webRTC. This stream is sent to the web server, along with the public IP address as the return point. The back end server processes the stream, makes a prediction, and then returns that prediction to the client on top of the original video stream.
 
 [<img src="https://github.com/cphyland/Final_Project_Emojify/blob/main/static/images/communication_process.png">](https://github.com/aiortc/aiortc/tree/main/examples/server)
 
